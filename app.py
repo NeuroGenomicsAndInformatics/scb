@@ -27,9 +27,9 @@ logger.addHandler(handler)
 
 # take db connection stirng from the commandline as an argument
 cstring = sys.argv[1]
-logger.info('opendb')
+logger.info('Sending request for database connection.')
 client = MongoClient(cstring)
-logger.info('db is open')
+logger.info('Connected.')
 db=client.admin
 
 def getGenes():
