@@ -12,22 +12,45 @@ from pymongo import MongoClient
 import matplotlib.pyplot as plt
 import numpy as np
 
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+handler = logging.FileHandler('test500k.log')
+handler.setLevel(logging.DEBUG)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
+
 # take db connection stirng from the commandline as an argument
 cstring = sys.argv[1]
+logger.info('opendb')
 client = MongoClient(cstring)
+logger.info('db is open')
 db=client.admin
 
 def getGenes():
+    logger.info('Querying for all genes for dropdown...')
     x = db.genesfull.find()
+    logger.info('Done. (Querying for all genes for dropdown...)')
+
+    logger.info('Processing documents returned by query for all gene names...')
     geneList = []
     
     for doc in x:
         geneList.append(doc['name'])
+    logger.info('Done. (Processing documents returned by query for all gene names...)')
     return geneList
 
 def getVals(selected_dropdown_value):
+    logger.info('Querying for gene expression values...')
     x = db.genesfull.find({'name' : selected_dropdown_value})
+    logger.info('Done. (Querying for gene expression values...)')
     
+    logger.info('Processing documents returned by query for gene expression values...')
     temp = {}
     for doc in x:
         temp = doc['values']
@@ -35,10 +58,14 @@ def getVals(selected_dropdown_value):
     arr = np.zeros(336295, dtype=int)
     for key in temp:
         arr[int(key)] = temp.get(key)
+
+    logger.info('Done. (Processing documents returned by query for gene expression values...)')
     return arr
 
 app = dash.Dash('Hello World')
+logger.info('Reading in UMAP values...')
 df = pd.read_csv('umap.txt', delimiter=' ')
+logger.info('Done. (Reading in UMAP values...)')
 
 app.layout = html.Div([
     html.Div([dcc.Dropdown(
@@ -54,11 +81,13 @@ app.layout = html.Div([
 
 @app.callback(Output('my-graph', 'figure'), [Input('my-dropdown', 'value')])
 def update_graph(selected_dropdown_value):
+    logger.info('Begin updating process of plot...')
     return {
             'data': [
                 go.Scatter(
                     x=df["UMAP_1"],
                     y=df["UMAP_2"],
+                    hoverinfo='skip',
                     mode='markers',
                     opacity=0.7,
                     marker=dict(
