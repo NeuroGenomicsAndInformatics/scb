@@ -1,5 +1,5 @@
 ## SCB - Single Cell Browser
 
-![Full chart](https://user-images.githubusercontent.com/8558042/73576406-fa3ab000-443f-11ea-8252-dc53c443ef66.PNG)
+![Full chart]https://user-images.githubusercontent.com/48568122/73579698-c748ea00-4448-11ea-8ade-122ca0fb1012.JPG
 
 The application is still in the early stages of production. Stay tuned . . .
