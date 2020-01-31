@@ -1,1 +1,1 @@
-# Single Cell Browser Application (pronounced "scoo-ba")
+# _S_ingle _C_ell _B_rowser _A_pplication ######(pronounced "scoo-ba")
