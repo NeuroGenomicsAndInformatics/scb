@@ -1,3 +1,5 @@
+# used to populate mongodb server
+
 import sys
 from pymongo import MongoClient
 import pandas as pd
@@ -20,10 +22,7 @@ for link in fileList:
 	for gene in df2.index.values:
 	    book = {}
 	    curGene = df2.loc[ gene , : ]
-
-	    #print(gene)
-	    #print (curGene)
-	    #print("---------------")
+		
 	    for i in range(0, len(df2.loc[ gene , : ])):
 	        if curGene[i] != 0:
 	        	book[str(i)] = int(curGene[i])
