@@ -1,1 +1,2 @@
-# **S**ingle **C**ell **B**rowser **A**pplication ######(pronounced "scoo-ba")
+# Single Cell Browser Application 
+###### (pronounced "scoo-ba")
