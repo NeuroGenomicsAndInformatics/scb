@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
             # generate a script to load the customized session
-    script = server_document(url=link)
+    script = server_document(url="http://fenix.psych.wucon.wustl.edu:8050/bokehApp")
             # use the script in the rendered page
     return render_template("embed.html", script=script, template="Flask")
 
